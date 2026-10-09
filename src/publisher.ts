@@ -91,7 +91,7 @@ export class Publisher {
     let message: { message_id: number };
     try {
       message = await telegram(this.env, 'sendMessage', {
-        chat_id: draft.target_id, text, link_preview_options: { url: draft.page_url },
+        chat_id: draft.target_id, text, link_preview_options: { is_disabled: true },
       });
     } catch (error) {
       const definitive = error instanceof TelegramError && error.definitive;

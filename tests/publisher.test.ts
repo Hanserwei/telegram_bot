@@ -165,6 +165,9 @@ describe('administrator workflow', () => {
     expect(publishedRequests()).toHaveLength(1);
     expect(publishedRequests()[0].body.chat_id).toBe(-1002000);
     expect(publishedRequests()[0].body.text).toBe(`${item.caption}\n\n▶️ 点击观看\n${item.page_url}`);
+    for (const sent of requests.filter(r => r.path === 'sendMessage')) {
+      expect(sent.body.link_preview_options).toEqual({ is_disabled: true });
+    }
     expect((await store.get(item.id))?.status).toBe('published');
   });
 

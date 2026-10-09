@@ -40,7 +40,9 @@ function keyboard(draft: Draft) {
 
 class BotHandler extends Publisher {
   async say(chatId: number, text: string, extras: object = {}) {
-    return telegram<Message>(this.env, 'sendMessage', { chat_id: chatId, text, ...extras });
+    return telegram<Message>(this.env, 'sendMessage', {
+      chat_id: chatId, text, ...extras, link_preview_options: { is_disabled: true },
+    });
   }
 
   async preview(draft: Draft, chatId: number) {
@@ -63,7 +65,6 @@ class BotHandler extends Publisher {
       draft.caption ? postText(draft) : `素材已存档。草稿：${draft.id}\n素材：${summary}\n` +
         `目标频道：${draft.target_name}\n请回复本消息填写文案或追加素材。`, {
         reply_markup: keyboard(draft),
-        ...(draft.page_url ? { link_preview_options: { url: draft.page_url } } : {}),
       });
     await this.store.link(chatId, sent.message_id, draft.id);
   }
