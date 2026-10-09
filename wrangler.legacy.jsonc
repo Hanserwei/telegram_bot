@@ -1,0 +1,49 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "telegram-video-publisher",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-09",
+  "workers_dev": true,
+  "preview_urls": false,
+  "vars": {
+    "ADMIN_IDS": "[6007422252]",
+    "ARCHIVE_CHAT_ID": "-1004351221895",
+    "PUBLISH_CHANNELS": "{\"展示频道\":-1004374297770}",
+    "PUBLIC_BASE_URL": "https://telegram-video-publisher.ssw010723.workers.dev",
+    "TELEGRAPH_AUTHOR_NAME": "视频分享"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "telegram-video-publisher",
+      "database_id": "c1a0f0ff-cd11-43fc-a12f-7fc0dca24b45",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "UPDATES",
+        "queue": "telegram-video-updates"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "telegram-video-updates",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_concurrency": 1,
+        "max_retries": 3,
+        "retry_delay": 30
+      }
+    ]
+  },
+  "triggers": {
+    "crons": [
+      "*/10 * * * *"
+    ]
+  },
+  "observability": {
+    "enabled": false
+  }
+}

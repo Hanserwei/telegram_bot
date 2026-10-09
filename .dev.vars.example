@@ -1,0 +1,12 @@
+# 复制为 .dev.vars，只保存在本机；生产密钥用 wrangler secret put 设置。
+BOT_TOKEN="123456789:REPLACE_WITH_YOUR_BOT_TOKEN"
+# 用 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))" 生成。
+WEBHOOK_SECRET="REPLACE_WITH_RANDOM_64_HEX_CHARACTERS"
+# 以下值用于本地测试和设置脚本；同时更新 wrangler.jsonc 中的生产 vars。
+ADMIN_IDS="[123456789]"
+ARCHIVE_CHAT_ID="-1001234567890"
+PUBLISH_CHANNELS='{"主频道":-1009876543210}'
+PUBLIC_BASE_URL="https://telegram-video-publisher.YOUR-SUBDOMAIN.workers.dev"
+TELEGRAPH_AUTHOR_NAME="视频分享"
+# 可不填写：第一次创建页面时自动创建 Telegraph 账户，凭据保存在 D1。
+TELEGRAPH_ACCESS_TOKEN=""

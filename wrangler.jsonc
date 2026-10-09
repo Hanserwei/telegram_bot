@@ -1,0 +1,49 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sfchucun-video",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-09",
+  "workers_dev": true,
+  "preview_urls": false,
+  "vars": {
+    "ADMIN_IDS": "[5172904699,5756088615]",
+    "ARCHIVE_CHAT_ID": "-1004329843210",
+    "PUBLISH_CHANNELS": "{\"展示频道\":-1004451866121}",
+    "PUBLIC_BASE_URL": "https://sfchucun-video.ssw010723.workers.dev",
+    "TELEGRAPH_AUTHOR_NAME": "视频分享"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sfchucun-video",
+      "database_id": "64f2d143-6512-4d87-97d3-9f85b23aa947",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "UPDATES",
+        "queue": "sfchucun-video-updates"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "sfchucun-video-updates",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_concurrency": 1,
+        "max_retries": 3,
+        "retry_delay": 30
+      }
+    ]
+  },
+  "triggers": {
+    "crons": [
+      "*/10 * * * *"
+    ]
+  },
+  "observability": {
+    "enabled": false
+  }
+}
